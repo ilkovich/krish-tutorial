@@ -11,6 +11,10 @@ function min_helper(nums, currVal) {
     /*
      * Your code goes here.
      */
+    return nums.length 
+        ? min_helper(nums, Math.min(nums.splice(0,1)[0], currVal))
+        : (currVal || null)
+    ;
 }
 
 function min(nums) {
@@ -18,7 +22,7 @@ function min(nums) {
 
     //take elements 1->end of the array and pass it 
     //the first value in the array as the minimum
-    return min_helper(nums, nums.splice(0, 1));
+    return min_helper(nums, nums.splice(0, 1)[0]);
 }
 
 module.exports = min;
