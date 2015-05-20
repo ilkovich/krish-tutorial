@@ -3,6 +3,8 @@ var assert      = require('assert')
   , factorial   = require('../part1/factorial')
   , sumOfDigits = require('../part2/sumOfDigits') 
   , min         = require('../part3/min')
+  , TreeScanner = require('../part4/treeScanner.js')
+  , tree1       = require('./tree1')
 ;
 
 describe('part1', function() {
@@ -30,5 +32,84 @@ describe('part3', function() {
         assert.equal(min([12]), 12, 'should be 12');
         assert.equal(min([]), null, 'should be null');
         assert.equal(min(['asdf', 12, 234, 10, null]), null, 'should be 10');
+    });
+});
+
+describe('part4', function() {
+    it('output tree breadth first', function() {
+        var ts = new TreeScanner(tree1);
+        assert.equal(ts.breadthFirstSearch(), 
+            [ 
+                'Tree', 
+                'item 1',
+                'item 2',
+                'item 3',
+                'item 4',
+                'item 5',
+                'item 6',
+                'item 1-1',
+                'item 1-2',
+                'item 5-1',
+                'item 5-2',
+                'item 6-1',
+                'item 6-2',
+                'item 6-3',
+                'item 6-4',
+                'item 5-1a',
+                'item 5-1b',
+                'item 6-2a',
+            ].join('|'));
+    });
+
+    it('output tree depthFirstSearch', function() {
+        var ts = new TreeScanner(tree1);
+        assert.equal(ts.breadthFirstSearch(), [ 
+            'Tree', 
+            'item 1',
+            'item 1-1',
+            'item 1-2',
+            'item 2',
+            'item 3',
+            'item 4',
+            'item 5',
+            'item 5-1',
+            'item 5-1a',
+            'item 5-1b',
+            'item 5-2',
+            'item 6',
+            'item 6-1',
+            'item 6-2',
+            'item 6-2a',
+            'item 6-3',
+            'item 6-4',
+        ].join('|'));
+    });
+
+    it('filters tree by folders', function() {
+        var ts = new TreeScanner(tree1);
+        assert.deepEqual(ts.filterSearch(1), [
+           'Tree',
+           'item 1',
+           'item 5',
+           'item 5-1',
+           'item 6',
+           'item 6-2',
+           'item 6-4',
+        ]);
+        assert.deepEqual(ts.filterSearch(2), [
+            'item 2',
+            'item 3'
+        ]);
+        assert.deepEqual(ts.filterSearch(3), [
+            'item 1-1',
+            'item 1-2',
+            'item 4',
+            'item 5-1a',
+            'item 5-1b',
+            'item 5-2',
+            'item 6-1',
+            'item 6-2a',
+            'item 6-3',
+        ]);
     });
 });
