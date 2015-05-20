@@ -63,7 +63,7 @@ describe('part4', function() {
 
     it('output tree depthFirstSearch', function() {
         var ts = new TreeScanner(tree1);
-        assert.equal(ts.breadthFirstSearch(), [ 
+        assert.equal(ts.depthFirstSearch(), [ 
             'Tree', 
             'item 1',
             'item 1-1',

@@ -64,5 +64,6 @@ var FOLDER = 1
             }]
         }]
     }
-}
-;
+};
+
+module.exports = tree;
